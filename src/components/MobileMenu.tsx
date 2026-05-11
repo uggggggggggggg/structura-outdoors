@@ -126,6 +126,7 @@ export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps)
                 variant="primary"
                 size="lg"
                 href="/request-quote"
+                onClick={onClose}
                 className="w-full"
               >
                 Request a Quote
