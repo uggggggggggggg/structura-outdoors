@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { ButtonSize, ButtonVariant } from "@/lib/button-variants";
 import { getButtonClasses } from "@/lib/button-variants";
 
@@ -27,20 +30,24 @@ export default function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
-        {children}
-      </Link>
+      <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="inline-block">
+        <Link href={href} className={classes}>
+          {children}
+        </Link>
+      </motion.div>
     );
   }
 
   return (
-    <button
+    <motion.button
       type={type}
       className={classes}
       onClick={onClick}
       disabled={disabled}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }

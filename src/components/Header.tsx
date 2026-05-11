@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { Menu, Phone } from "lucide-react";
 import { navLinks } from "@/lib/data";
 import Button from "./Button";
 import MobileMenu from "./MobileMenu";
@@ -10,11 +11,25 @@ import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <>
-      <header className="fixed top-0 z-50 w-full border-b border-brand-border/50 bg-brand-light/90 backdrop-blur-md">
+      <motion.header
+        className={`fixed top-0 z-40 w-full transition-shadow duration-300 ${
+          scrolled
+            ? "shadow-md border-b border-brand-border/50"
+            : "border-b border-transparent"
+        } bg-brand-light/90 backdrop-blur-md`}
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <Link href="/" className="text-2xl font-bold tracking-tight">
             <span className="font-serif font-bold text-brand-dark">Structura</span>
@@ -50,16 +65,17 @@ export default function Header() {
             </Button>
           </div>
 
-          <button
+          <motion.button
             type="button"
             className="lg:hidden p-2 text-brand-dark"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
+            whileTap={{ scale: 0.85 }}
           >
             <Menu size={24} />
-          </button>
+          </motion.button>
         </div>
-      </header>
+      </motion.header>
 
       <MobileMenu
         open={mobileOpen}
