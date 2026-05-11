@@ -179,10 +179,27 @@ export const testimonials = [
 
 export const portfolioItems = [
   {
+    slug: "springbank-hill-multi-level-deck",
     title: "Springbank Hill Multi-Level Deck",
     category: "Decking",
+    location: "Springbank Hill, Calgary",
     description:
       "Composite deck with integrated lighting and glass railings, maximizing a steep slope property in Calgary's Springbank Hill neighbourhood.",
+    extendedDescription:
+      "The Mitchell family's Springbank Hill property featured a dramatic 22-degree slope that had gone unused since construction — a dead zone of overgrown grass and erosion gullies. Our brief: turn 1,400 square feet of unusable terrain into the home's signature outdoor living space. The resulting three-tier composite deck cascades down the slope in staggered platforms, each with its own purpose: an upper dining terrace, a mid-level lounge with a fire table, and a lower sun deck with glass railings that preserve the panoramic foothills view.",
+    challenge:
+      "The property had a steep 22-degree slope with severe drainage issues that caused erosion across the entire hillside. Calgary's freeze-thaw cycles meant any structural solution had to be engineered for significant ground movement. Access for equipment was restricted to a narrow side yard.",
+    solution:
+      "We designed a three-tier composite deck anchored on helical piles driven 12 feet into stable soil below the frost line. Each tier is structurally independent to accommodate differential ground movement. Integrated channel drains redirect surface water away from the foundation. The upper tier connects directly to the kitchen, creating a seamless indoor-outdoor transition.",
+    highlights: [
+      "Three-tier composite deck with dedicated dining, lounge, and sun deck zones",
+      "Helical pile foundation engineered for Calgary's expansive clay soil",
+      "Frameless glass railings preserving unobstructed foothills views",
+      "Integrated LED step lighting and under-rail ambient lighting",
+      "Built-in irrigation channels to manage hillside drainage",
+      "Permitted and built in 9 weeks — ahead of the 12-week estimate",
+    ],
+    completionDate: "2025-08",
     before: "/images/portfolio-deck-before-springbank.jpg",
     after: "/images/portfolio-deck-after-springbank.jpg",
     beforeAlt:
@@ -191,10 +208,27 @@ export const portfolioItems = [
       "Springbank Hill luxury multi-level composite deck with glass railings and integrated lighting — Structura Outdoors Calgary deck builder",
   },
   {
+    slug: "elbow-park-modern-garden",
     title: "Elbow Park Modern Garden",
     category: "Garden Design",
+    location: "Elbow Park, Calgary",
     description:
       "Architectural planting scheme with native grasses, corten steel edging, and integrated LED mood lighting in Calgary's Elbow Park.",
+    extendedDescription:
+      "The Harrison family's Elbow Park home had a traditional landscape that demanded constant watering, weeding, and seasonal replanting — precisely the kind of maintenance they no longer wanted. We stripped the site back to its bones and designed a modern, architectural garden that looks more intentional with every passing season. Corten steel retaining walls double as sculptural edging. Mass plantings of Karl Foerster feather reed grass and Little Bluestem provide year-round structure, while integrated uplighting transforms the garden into a dramatic evening landscape.",
+    challenge:
+      "The existing garden was high-maintenance, water-hungry, and lacked any sense of design cohesion. The homeowners wanted something that looked curated and modern but required almost no weekly upkeep beyond seasonal trimming.",
+    solution:
+      "We implemented a full hardscape-to-softscape redesign anchored by corten steel edging that defines clean planting zones. Every plant was selected for Calgary's hardiness zone (3b) and drought tolerance. Drip irrigation runs throughout. LED uplighting on timers highlights the steel and grasses after sunset.",
+    highlights: [
+      "Corten steel retaining walls and edging for sculptural, maintenance-free definition",
+      "Mass planting of native and climate-adapted grasses for year-round structure",
+      "Full drip irrigation system reducing water consumption by 60%",
+      "Programmable LED uplighting for dramatic evening curb appeal",
+      "Zero-mow, zero-fertilizer design — seasonal trim only",
+      "Property value increase estimated at 8–12% by local realtor",
+    ],
+    completionDate: "2025-09",
     before: "/images/portfolio-garden-before-elbowpark.jpg",
     after: "/images/portfolio-garden-after-elbowpark.jpg",
     beforeAlt:
@@ -203,10 +237,27 @@ export const portfolioItems = [
       "Elbow Park Calgary modern architectural garden with native grasses, corten steel edging and integrated LED lighting — Structura Outdoors garden design",
   },
   {
+    slug: "downtown-commercial-foundation",
     title: "Downtown Commercial Foundation",
     category: "Foundation Repair",
+    location: "Downtown Calgary",
     description:
       "Complete underpinning and waterproofing of a 1960s commercial building in Downtown Calgary with zero tenant disruption.",
+    extendedDescription:
+      "A 1964 commercial building in Calgary's downtown core had been managing foundation issues with patch repairs for two decades. When Michael Chen took over property management, he inherited basement leaks across three tenant spaces, visible cracking in the parking garage, and an insurance renewal contingent on a structural assessment. Our team conducted a full geotechnical survey, identified the root cause — decades of poor drainage saturating expansive clay — and executed a complete underpinning and waterproofing program. All three commercial tenants remained operational throughout the 14-week project.",
+    challenge:
+      "A 60-year-old commercial building with active foundation settlement, water infiltration into tenant spaces, and structural cracking visible in the underground parking. Work had to proceed without disrupting three operating businesses. Insurance renewal was at risk.",
+    solution:
+      "After a geotechnical survey confirmed expansive clay saturation, we installed 28 helical piers to bedrock, applied full interior and exterior waterproofing membranes, replaced the failed perimeter drainage system, and injected all structural cracks with high-strength epoxy. Work was staged in zones to keep tenants operational.",
+    highlights: [
+      "28 helical piers driven to bedrock across three building elevations",
+      "Full interior and exterior waterproofing membrane system",
+      "Complete perimeter drainage replacement with sump pump backup",
+      "Structural crack epoxy injection — 47 linear feet total",
+      "Zero tenant disruption during the 14-week project",
+      "Post-repair structural report cleared insurance renewal conditions",
+    ],
+    completionDate: "2025-11",
     before: "/images/portfolio-foundation-before-downtown.jpg",
     after: "/images/portfolio-foundation-after-downtown.jpg",
     beforeAlt:
@@ -215,10 +266,27 @@ export const portfolioItems = [
       "Downtown Calgary commercial foundation repair completed — structural underpinning, waterproofing and piering by Structura Outdoors",
   },
   {
+    slug: "aspen-woods-rooftop-deck",
     title: "Aspen Woods Rooftop Deck",
     category: "Decking",
+    location: "Aspen Woods, Calgary",
     description:
       "Custom cedar rooftop deck with built-in planters, privacy screens, and outdoor kitchen rough-in in Calgary's Aspen Woods.",
+    extendedDescription:
+      "A flat rooftop in Aspen Woods that served only as a mechanical access point became one of Calgary's most dramatic outdoor entertaining spaces. Working within the structural constraints of the existing roof, we engineered a lightweight cedar deck system that added less than 12 pounds per square foot. Built-in cedar planters soften the perimeter, louvered privacy screens provide wind protection, and the outdoor kitchen rough-in — with gas, water, and electrical — awaits the client's final appliance selection.",
+    challenge:
+      "The existing flat roof had strict structural load limits. Calgary's wind exposure at this elevation demanded wind-rated privacy screens. Access for materials was limited to a narrow exterior staircase.",
+    solution:
+      "We engineered a lightweight cedar deck system using aluminum substructure to minimize dead load. Louvered privacy screens are rated for 120 km/h wind loads. All materials were crane-hoisted in a single day. Built-in planters use lightweight growing medium to stay within structural limits.",
+    highlights: [
+      "Lightweight cedar deck system on aluminum substructure — under 12 psf dead load",
+      "Wind-rated louvered privacy screens (120 km/h)",
+      "Built-in cedar planters with integrated drip irrigation",
+      "Outdoor kitchen rough-in: gas line, hot/cold water, GFCI electrical",
+      "All materials crane-hoisted in one day to minimize disruption",
+      "Engineered and permitted in 6 weeks, built in 7",
+    ],
+    completionDate: "2025-07",
     before: "/images/portfolio-rooftop-before-aspenwoods.jpg",
     after: "/images/portfolio-rooftop-after-aspenwoods.jpg",
     beforeAlt:
@@ -227,10 +295,27 @@ export const portfolioItems = [
       "Aspen Woods Calgary custom cedar rooftop deck with built-in planters, privacy screens and outdoor kitchen — Structura Outdoors luxury decking",
   },
   {
+    slug: "mount-royal-heritage-garden",
     title: "Mount Royal Heritage Garden",
     category: "Garden Design",
+    location: "Mount Royal, Calgary",
     description:
       "Period-sensitive modern garden design for a heritage property in Calgary's Mount Royal, blending contemporary structure with classic plantings.",
+    extendedDescription:
+      "A 1920s character home in Mount Royal needed a front garden that honored its heritage while signaling that the owners had taste for this century, not the last. Working within the community's architectural guidelines, we designed a restrained modern garden that uses period-appropriate limestone hardscaping as its foundation, then layers in contemporary plant groupings, a minimalist water feature, and hidden LED pathway lighting. The result respects the streetscape but stands apart — exactly the balance the homeowners wanted.",
+    challenge:
+      "The property is in a heritage district with strict architectural guidelines. The front garden needed to complement the 1920s character home while introducing a modern sensibility. Community association approval was required.",
+    solution:
+      "We used period-appropriate limestone for all hardscaping to satisfy the heritage board, then introduced modern elements through plant selection, a minimalist reflecting pool, and hidden LED lighting. All plantings are historically compatible species arranged in contemporary mass groupings. The design passed community review in a single submission.",
+    highlights: [
+      "Limestone hardscaping approved by the Mount Royal heritage board",
+      "Minimalist reflecting pool as a contemporary focal point",
+      "Historically compatible plantings in modern mass groupings",
+      "Hidden LED pathway and uplighting — no visible fixtures",
+      "Community association approval in a single submission",
+      "Featured in Avenue Calgary's 'Best Front Gardens' 2025",
+    ],
+    completionDate: "2025-06",
     before: "/images/portfolio-garden-before-mountroyal.jpg",
     after: "/images/portfolio-garden-after-mountroyal.jpg",
     beforeAlt:
@@ -239,10 +324,27 @@ export const portfolioItems = [
       "Mount Royal Calgary heritage modern garden design blending contemporary structure with classic plantings — Structura Outdoors",
   },
   {
+    slug: "riverside-estates-full-exterior",
     title: "Riverside Estates Full Exterior",
     category: "Foundation Repair",
+    location: "Bowness, Calgary",
     description:
       "Exterior waterproofing and drainage correction for a 14-unit riverside complex in Calgary's Bowness, including new retaining walls.",
+    extendedDescription:
+      "When the Riverside Estates HOA noticed water staining in ground-floor units and a retaining wall that had begun to lean, they called Structura. The 14-unit complex sits on a riverside slope in Bowness where seasonal groundwater migration was overwhelming a 40-year-old drainage system. We executed a comprehensive exterior waterproofing program across all four building elevations, installed a modern perimeter drainage system with dual sump pumps, and replaced the failing retaining wall with an engineered segmental block wall rated for the hydraulic pressure of the site. The project was completed two weeks ahead of the board's schedule and $18,000 under budget.",
+    challenge:
+      "A 14-unit riverside complex with water infiltration into ground-floor units, a leaning retaining wall approaching structural failure, and a 40-year-old drainage system that couldn't handle seasonal groundwater migration on a river-adjacent site.",
+    solution:
+      "Full exterior excavation to footing depth on all four elevations. Applied a multi-layer waterproofing membrane with dimple board drainage mat. Installed a modern perimeter drainage system with dual sump pumps on battery backup. Replaced the failing retaining wall with an engineered segmental block system rated for the site's hydraulic pressure. Grade correction directed surface water away from all foundations.",
+    highlights: [
+      "Full exterior excavation and waterproofing on 4 building elevations",
+      "Multi-layer membrane system with dimple board drainage mat",
+      "New perimeter drainage with dual sump pumps on battery backup",
+      "Engineered segmental block retaining wall replacing the failed structure",
+      "Grade correction and surface water management across the site",
+      "Completed 2 weeks ahead of schedule, $18,000 under budget",
+    ],
+    completionDate: "2025-10",
     before: "/images/portfolio-exterior-before-riverside.jpg",
     after: "/images/portfolio-exterior-after-riverside.jpg",
     beforeAlt:

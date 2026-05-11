@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Section from "./Section";
 import ScrollReveal from "./ScrollReveal";
 import Badge from "./Badge";
@@ -59,7 +61,7 @@ export default function PortfolioGrid() {
         <AnimatePresence mode="popLayout">
           {filtered.map((project, i) => (
             <motion.div
-              key={project.title}
+              key={project.slug}
               layout
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -72,23 +74,28 @@ export default function PortfolioGrid() {
               className="group rounded-xl overflow-hidden border border-brand-border bg-white hover:shadow-lg transition-shadow"
               whileHover={{ y: -4 }}
             >
-              <BeforeAfter
-                beforeUrl={project.before}
-                afterUrl={project.after}
-                beforeAlt={project.beforeAlt}
-                afterAlt={project.afterAlt}
-              />
-              <div className="p-5">
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-accent">
-                  {project.category}
-                </span>
-                <h3 className="mt-1 font-serif text-lg font-bold text-brand-dark">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-dark/60">
-                  {project.description}
-                </p>
-              </div>
+              <Link href={`/portfolio/${project.slug}`}>
+                <BeforeAfter
+                  beforeUrl={project.before}
+                  afterUrl={project.after}
+                  beforeAlt={project.beforeAlt}
+                  afterAlt={project.afterAlt}
+                />
+                <div className="p-5">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-accent">
+                    {project.category}
+                  </span>
+                  <h3 className="mt-1 font-serif text-lg font-bold text-brand-dark group-hover:text-brand-cta transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-brand-dark/60">
+                    {project.description}
+                  </p>
+                  <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-brand-cta opacity-0 group-hover:opacity-100 transition-opacity">
+                    View project <ArrowRight size={12} />
+                  </div>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </AnimatePresence>
