@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Phone } from "lucide-react";
 import { navLinks } from "@/lib/data";
@@ -22,6 +23,7 @@ const linkAnim = {
 };
 
 export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
+  const router = useRouter();
   const dragRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,6 +36,11 @@ export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps)
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  const navigate = (href: string) => {
+    onClose();
+    setTimeout(() => router.push(href), 50);
+  };
 
   return (
     <AnimatePresence>
@@ -94,17 +101,17 @@ export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps)
             >
               {navLinks.map((link) => (
                 <motion.div key={link.href} variants={linkAnim}>
-                  <Link
-                    href={link.href}
-                    onClick={onClose}
-                    className={`block text-lg font-medium py-3 transition-colors ${
+                  <button
+                    type="button"
+                    onClick={() => navigate(link.href)}
+                    className={`block text-lg font-medium py-3 transition-colors text-left w-full ${
                       pathname === link.href
                         ? "text-brand-cta"
                         : "text-brand-dark hover:text-brand-cta"
                     }`}
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </motion.div>
               ))}
             </motion.nav>
@@ -126,7 +133,7 @@ export default function MobileMenu({ open, onClose, pathname }: MobileMenuProps)
                 variant="primary"
                 size="lg"
                 href="/request-quote"
-                onClick={onClose}
+                onClick={() => navigate("/request-quote")}
                 className="w-full"
               >
                 Request a Quote
