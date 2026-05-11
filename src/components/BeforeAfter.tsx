@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, GripVertical } from "lucide-react";
+import { GripVertical } from "lucide-react";
 
 interface BeforeAfterProps {
   beforeUrl: string;
   afterUrl: string;
   beforeLabel?: string;
   afterLabel?: string;
+  beforeAlt?: string;
+  afterAlt?: string;
 }
 
 export default function BeforeAfter({
@@ -15,6 +17,8 @@ export default function BeforeAfter({
   afterUrl,
   beforeLabel = "Before",
   afterLabel = "After",
+  beforeAlt = "Before renovation",
+  afterAlt = "After renovation",
 }: BeforeAfterProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -49,10 +53,12 @@ export default function BeforeAfter({
     <div
       ref={containerRef}
       className="relative w-full aspect-[4/3] overflow-hidden rounded-lg select-none"
+      role="img"
+      aria-label={`Before and after comparison: ${afterAlt}`}
     >
       <img
         src={afterUrl}
-        alt="After"
+        alt={afterAlt}
         className="absolute inset-0 w-full h-full object-cover"
         draggable={false}
       />
@@ -63,7 +69,7 @@ export default function BeforeAfter({
       >
         <img
           src={beforeUrl}
-          alt="Before"
+          alt={beforeAlt}
           className="absolute inset-0 w-full h-full object-cover"
           style={{
             width: `${100 / (sliderPosition / 100)}%`,

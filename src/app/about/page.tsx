@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
+import { aboutImage } from "@/lib/data";
 import { ShieldCheck, Award, Building2, HardHat, Clock, Star } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -73,9 +75,13 @@ export default function AboutPage() {
 
           <ScrollReveal direction="left">
             <div className="relative aspect-[4/5] rounded-xl bg-brand-accent/20 overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center text-brand-accent/30">
-                <Building2 size={96} />
-              </div>
+              <Image
+                src={aboutImage.src}
+                alt={aboutImage.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
           </ScrollReveal>
         </div>

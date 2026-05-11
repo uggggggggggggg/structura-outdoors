@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Structura Outdoors | Premium Landscaping & Design — Calgary, AB",
     description:
       "Luxury decks, modern garden design, and foundation repair engineered for Calgary extremes. Request your free design consultation.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/images/og-image-structura-outdoors.jpg", width: 1200, height: 630, alt: "Structura Outdoors Calgary — premium landscaping, decking, garden design and foundation repair" }],
   },
   robots: { index: true, follow: true },
 };

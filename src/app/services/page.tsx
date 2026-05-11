@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
+import { services as servicesData } from "@/lib/data";
 import { LayoutGrid, Flower2, Shield, Check } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -11,59 +13,27 @@ export const metadata: Metadata = {
     "Premium decking, modern garden design, and foundation repair for Calgary homes and commercial properties. Engineered for Alberta extremes.",
 };
 
-const services = [
-  {
-    id: "decking",
-    title: "Decking",
-    tagline: "Purpose-built for Calgary&apos;s four seasons.",
-    description:
-      "From low-maintenance composite to natural cedar, we engineer decks that survive freeze-thaw cycles without warping, splintering, or fading. Your deck should be the part of your home you use the most — not the part you worry about.",
-    icon: LayoutGrid,
-    image: "/images/decking-hero.jpg",
-    features: [
-      "Composite, cedar, and pressure-treated options",
-      "Engineered for Alberta freeze-thaw extremes",
-      "Integrated lighting and railing systems",
-      "Permit-ready plans and structural engineering",
-    ],
-  },
-  {
-    id: "garden-design",
-    title: "Modern Garden Design",
-    tagline: "Landscaping is upkeep. Garden design is architecture.",
-    description:
-      "We design outdoor spaces with clean lines, intentional planting, integrated lighting, and year-round structure. No fussy flower beds. No Saturday mornings spent weeding. Just a landscape that looks better every season.",
-    icon: Flower2,
-    image: "/images/garden-hero.jpg",
-    features: [
-      "Architectural planting schemes with year-round interest",
-      "Integrated hardscaping and softscaping",
-      "Low-maintenance native and climate-adapted species",
-      "Outdoor lighting design for evening drama",
-    ],
-  },
-  {
-    id: "foundation-repair",
-    title: "Foundation Repair",
-    tagline: "We don&apos;t patch and pray. We diagnose and fix.",
-    description:
-      "Structura Outdoors doesn&apos;t patch and pray. We diagnose the root cause — drainage, soil movement, structural load — and fix it permanently. Piering, underpinning, crack injection, waterproofing. Done once. Done right. Warranty-backed.",
-    icon: Shield,
-    image: "/images/foundation-hero.jpg",
-    features: [
-      "Helical piering and push pier systems",
-      "Interior and exterior waterproofing",
-      "Crack injection and structural epoxy repair",
-      "Drainage correction and soil stabilization",
-    ],
-    pas: {
-      problem:
-        "Calgary&apos;s clay soil expands and contracts with every season. Your foundation takes the hit. Hairline cracks become water entry points. Settling turns into structural damage.",
-      agitation:
-        "Every winter you ignore it, the damage compounds. Water seeps in, freezes, and widens. What starts as a minor cosmetic crack becomes a $30,000 problem — and a liability if you&apos;re managing a commercial property.",
-    },
-  },
-];
+type ServiceIcon = typeof LayoutGrid;
+
+const iconMap: Record<string, ServiceIcon> = {
+  LayoutGrid,
+  Flower2,
+  Shield,
+};
+
+const services = servicesData.map((s) => ({
+  ...s,
+  icon: iconMap[s.icon] ?? Shield,
+  pas:
+    s.slug === "foundation-repair"
+      ? {
+          problem:
+            "Calgary&apos;s clay soil expands and contracts with every season. Your foundation takes the hit. Hairline cracks become water entry points. Settling turns into structural damage.",
+          agitation:
+            "Every winter you ignore it, the damage compounds. Water seeps in, freezes, and widens. What starts as a minor cosmetic crack becomes a $30,000 problem — and a liability if you&apos;re managing a commercial property.",
+        }
+      : undefined,
+}));
 
 export default function ServicesPage() {
   return (
@@ -89,8 +59,8 @@ export default function ServicesPage() {
 
       {services.map((service, i) => (
         <Section
-          key={service.id}
-          id={service.id}
+          key={service.slug}
+          id={service.slug}
           className={i % 2 === 1 ? "bg-brand-warm" : "bg-white"}
         >
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -152,9 +122,13 @@ export default function ServicesPage() {
 
             <ScrollReveal direction="left">
               <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-brand-accent/20">
-                <div className="absolute inset-0 flex items-center justify-center text-brand-accent/40">
-                  <service.icon size={64} />
-                </div>
+                <Image
+                  src={service.image}
+                  alt={service.imageAlt || `${service.title} service by Structura Outdoors Calgary`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
             </ScrollReveal>
           </div>

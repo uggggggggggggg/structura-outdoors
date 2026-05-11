@@ -1,16 +1,19 @@
+import Image from "next/image";
 import Button from "./Button";
 import ScrollReveal from "./ScrollReveal";
+import { heroImage } from "@/lib/data";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url('/images/hero-bg.jpg')",
-          opacity: 0.55,
-        }}
+    <section className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-brand-dark">
+      <Image
+        src={heroImage.src}
+        alt={heroImage.alt}
+        fill
+        className="absolute inset-0 object-cover"
+        style={{ opacity: 0.55 }}
+        priority
+        sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/40 to-brand-dark/70" />
 

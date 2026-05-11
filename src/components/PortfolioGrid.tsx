@@ -5,57 +5,7 @@ import Section from "./Section";
 import ScrollReveal from "./ScrollReveal";
 import Badge from "./Badge";
 import BeforeAfter from "./BeforeAfter";
-
-const projects = [
-  {
-    title: "Springbank Hill Multi-Level Deck",
-    category: "Decking",
-    description:
-      "Composite deck with integrated lighting and glass railings, maximizing a steep slope property.",
-    before: "/images/portfolio-1-before.jpg",
-    after: "/images/portfolio-1-after.jpg",
-  },
-  {
-    title: "Elbow Park Modern Garden",
-    category: "Garden Design",
-    description:
-      "Architectural planting scheme with native grasses, corten steel edging, and integrated LED mood lighting.",
-    before: "/images/portfolio-2-before.jpg",
-    after: "/images/portfolio-2-after.jpg",
-  },
-  {
-    title: "Downtown Commercial Foundation",
-    category: "Foundation Repair",
-    description:
-      "Complete underpinning and waterproofing of a 1960s commercial building with zero tenant disruption.",
-    before: "/images/portfolio-3-before.jpg",
-    after: "/images/portfolio-3-after.jpg",
-  },
-  {
-    title: "Aspen Woods Rooftop Deck",
-    category: "Decking",
-    description:
-      "Custom cedar rooftop deck with built-in planters, privacy screens, and outdoor kitchen rough-in.",
-    before: "/images/portfolio-4-before.jpg",
-    after: "/images/portfolio-4-after.jpg",
-  },
-  {
-    title: "Mount Royal Heritage Garden",
-    category: "Garden Design",
-    description:
-      "Period-sensitive modern garden design for a heritage property, blending contemporary structure with classic plantings.",
-    before: "/images/portfolio-5-before.jpg",
-    after: "/images/portfolio-5-after.jpg",
-  },
-  {
-    title: "Riverside Estates Full Exterior",
-    category: "Foundation Repair",
-    description:
-      "Exterior waterproofing and drainage correction for a 14-unit riverside complex, including new retaining walls.",
-    before: "/images/portfolio-6-before.jpg",
-    after: "/images/portfolio-6-after.jpg",
-  },
-];
+import { portfolioItems } from "@/lib/data";
 
 const categories = ["All", "Decking", "Garden Design", "Foundation Repair"];
 
@@ -64,8 +14,8 @@ export default function PortfolioGrid() {
 
   const filtered =
     filter === "All"
-      ? projects
-      : projects.filter((p) => p.category === filter);
+      ? portfolioItems
+      : portfolioItems.filter((p) => p.category === filter);
 
   return (
     <Section className="bg-white">
@@ -80,7 +30,8 @@ export default function PortfolioGrid() {
         </ScrollReveal>
         <ScrollReveal delay={0.15}>
           <p className="mt-4 max-w-2xl mx-auto text-lg leading-relaxed text-brand-dark/60">
-            Drag the slider on any project to see the before-and-after transformation.
+            Drag the slider on any project to see the before-and-after transformation
+            — real Calgary projects by Structura Outdoors.
           </p>
         </ScrollReveal>
       </div>
@@ -109,6 +60,8 @@ export default function PortfolioGrid() {
               <BeforeAfter
                 beforeUrl={project.before}
                 afterUrl={project.after}
+                beforeAlt={project.beforeAlt}
+                afterAlt={project.afterAlt}
               />
               <div className="p-5">
                 <span className="text-xs font-semibold uppercase tracking-wider text-brand-accent">

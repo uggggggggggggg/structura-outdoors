@@ -27,14 +27,21 @@ export const defaultMetadata: Metadata = {
     title: "Structura Outdoors | Premium Landscaping & Design — Calgary, AB",
     description:
       "Luxury decks, modern garden design, and foundation repair engineered for Calgary extremes. Request your free design consultation.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "/images/og-image-structura-outdoors.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Structura Outdoors Calgary — premium landscaping, decking, garden design and foundation repair company",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Structura Outdoors | Premium Landscaping & Design",
     description:
       "Luxury decks, modern garden design, and foundation repair — Calgary, AB.",
-    images: ["/og-image.jpg"],
+    images: ["/images/og-image-structura-outdoors.jpg"],
   },
   robots: { index: true, follow: true },
 };
@@ -56,7 +63,9 @@ export const services = [
     tagline: "Purpose-built for Calgary's four seasons.",
     description:
       "From low-maintenance composite to natural cedar, we engineer decks that survive freeze-thaw cycles without warping, splintering, or fading. Your deck should be the part of your home you use the most — not the part you worry about.",
-    image: "/images/decking-hero.jpg",
+    image: "/images/service-decking-calgary.jpg",
+    imageAlt:
+      "Custom composite deck Calgary Alberta — Structura Outdoors luxury decking designed for four-season durability and Calgary climate extremes",
     features: [
       "Composite, cedar, and pressure-treated options",
       "Engineered for Alberta freeze-thaw extremes",
@@ -71,7 +80,9 @@ export const services = [
     tagline: "Landscaping is upkeep. Garden design is architecture.",
     description:
       "We design outdoor spaces with clean lines, intentional planting, integrated lighting, and year-round structure. No fussy flower beds. No Saturday mornings spent weeding. Just a landscape that looks better every season.",
-    image: "/images/garden-hero.jpg",
+    image: "/images/service-garden-design-calgary.jpg",
+    imageAlt:
+      "Modern architectural garden design Calgary — low-maintenance landscaping with integrated hardscaping and outdoor lighting by Structura Outdoors",
     features: [
       "Architectural planting schemes with year-round interest",
       "Integrated hardscaping and softscaping",
@@ -90,7 +101,9 @@ export const services = [
       "Every winter you ignore it, the damage compounds. Water seeps in, freezes, and widens. What starts as a minor cosmetic crack becomes a $30,000 problem — and a liability if you're managing a commercial property.",
     solution:
       "Structura Outdoors doesn't patch and pray. We diagnose the root cause — drainage, soil movement, structural load — and fix it permanently. Piering, underpinning, crack injection, waterproofing. Done once. Done right. Warranty-backed.",
-    image: "/images/foundation-hero.jpg",
+    image: "/images/service-foundation-repair-calgary.jpg",
+    imageAlt:
+      "Professional foundation repair and waterproofing Calgary — residential and commercial structural repair, piering and underpinning by Structura Outdoors",
     features: [
       "Helical piering and push pier systems",
       "Interior and exterior waterproofing",
@@ -169,51 +182,85 @@ export const portfolioItems = [
     title: "Springbank Hill Multi-Level Deck",
     category: "Decking",
     description:
-      "Composite deck with integrated lighting and glass railings, maximizing a steep slope property.",
-    before: "/images/portfolio-1-before.jpg",
-    after: "/images/portfolio-1-after.jpg",
+      "Composite deck with integrated lighting and glass railings, maximizing a steep slope property in Calgary's Springbank Hill neighbourhood.",
+    before: "/images/portfolio-deck-before-springbank.jpg",
+    after: "/images/portfolio-deck-after-springbank.jpg",
+    beforeAlt:
+      "Springbank Hill Calgary sloping property before multi-level composite deck installation by Structura Outdoors",
+    afterAlt:
+      "Springbank Hill luxury multi-level composite deck with glass railings and integrated lighting — Structura Outdoors Calgary deck builder",
   },
   {
     title: "Elbow Park Modern Garden",
     category: "Garden Design",
     description:
-      "Architectural planting scheme with native grasses, corten steel edging, and integrated LED mood lighting.",
-    before: "/images/portfolio-2-before.jpg",
-    after: "/images/portfolio-2-after.jpg",
+      "Architectural planting scheme with native grasses, corten steel edging, and integrated LED mood lighting in Calgary's Elbow Park.",
+    before: "/images/portfolio-garden-before-elbowpark.jpg",
+    after: "/images/portfolio-garden-after-elbowpark.jpg",
+    beforeAlt:
+      "Elbow Park Calgary backyard before modern garden design and architectural landscaping transformation by Structura Outdoors",
+    afterAlt:
+      "Elbow Park Calgary modern architectural garden with native grasses, corten steel edging and integrated LED lighting — Structura Outdoors garden design",
   },
   {
     title: "Downtown Commercial Foundation",
     category: "Foundation Repair",
     description:
-      "Complete underpinning and waterproofing of a 1960s commercial building with zero tenant disruption.",
-    before: "/images/portfolio-3-before.jpg",
-    after: "/images/portfolio-3-after.jpg",
+      "Complete underpinning and waterproofing of a 1960s commercial building in Downtown Calgary with zero tenant disruption.",
+    before: "/images/portfolio-foundation-before-downtown.jpg",
+    after: "/images/portfolio-foundation-after-downtown.jpg",
+    beforeAlt:
+      "Downtown Calgary 1960s commercial building before foundation underpinning and waterproofing by Structura Outdoors",
+    afterAlt:
+      "Downtown Calgary commercial foundation repair completed — structural underpinning, waterproofing and piering by Structura Outdoors",
   },
   {
     title: "Aspen Woods Rooftop Deck",
     category: "Decking",
     description:
-      "Custom cedar rooftop deck with built-in planters, privacy screens, and outdoor kitchen rough-in.",
-    before: "/images/portfolio-4-before.jpg",
-    after: "/images/portfolio-4-after.jpg",
+      "Custom cedar rooftop deck with built-in planters, privacy screens, and outdoor kitchen rough-in in Calgary's Aspen Woods.",
+    before: "/images/portfolio-rooftop-before-aspenwoods.jpg",
+    after: "/images/portfolio-rooftop-after-aspenwoods.jpg",
+    beforeAlt:
+      "Aspen Woods Calgary rooftop before custom cedar deck installation by Structura Outdoors",
+    afterAlt:
+      "Aspen Woods Calgary custom cedar rooftop deck with built-in planters, privacy screens and outdoor kitchen — Structura Outdoors luxury decking",
   },
   {
     title: "Mount Royal Heritage Garden",
     category: "Garden Design",
     description:
-      "Period-sensitive modern garden design for a heritage property, blending contemporary structure with classic plantings.",
-    before: "/images/portfolio-5-before.jpg",
-    after: "/images/portfolio-5-after.jpg",
+      "Period-sensitive modern garden design for a heritage property in Calgary's Mount Royal, blending contemporary structure with classic plantings.",
+    before: "/images/portfolio-garden-before-mountroyal.jpg",
+    after: "/images/portfolio-garden-after-mountroyal.jpg",
+    beforeAlt:
+      "Mount Royal Calgary heritage property garden before period-sensitive modern garden renovation by Structura Outdoors",
+    afterAlt:
+      "Mount Royal Calgary heritage modern garden design blending contemporary structure with classic plantings — Structura Outdoors",
   },
   {
     title: "Riverside Estates Full Exterior",
     category: "Foundation Repair",
     description:
-      "Exterior waterproofing and drainage correction for a 14-unit riverside complex, including new retaining walls.",
-    before: "/images/portfolio-6-before.jpg",
-    after: "/images/portfolio-6-after.jpg",
+      "Exterior waterproofing and drainage correction for a 14-unit riverside complex in Calgary's Bowness, including new retaining walls.",
+    before: "/images/portfolio-exterior-before-riverside.jpg",
+    after: "/images/portfolio-exterior-after-riverside.jpg",
+    beforeAlt:
+      "Riverside Estates Bowness Calgary multi-unit complex before exterior waterproofing and drainage correction by Structura Outdoors",
+    afterAlt:
+      "Riverside Estates Calgary 14-unit complex outdoor revitalization with retaining walls and drainage — Structura Outdoors commercial landscaping",
   },
 ];
+
+export const heroImage = {
+  src: "/images/hero-modern-outdoor-living-space.jpg",
+  alt: "Modern luxury outdoor living deck and patio in Calgary with integrated lighting and contemporary design by Structura Outdoors — premium landscaping and deck builder Calgary Alberta",
+};
+
+export const aboutImage = {
+  src: "/images/about-team-calgary.jpg",
+  alt: "Structura Outdoors team — Calgary-based landscaping, decking and foundation repair professionals serving Calgary and surrounding areas",
+};
 
 export const certifications = [
   "BBB Accredited",
