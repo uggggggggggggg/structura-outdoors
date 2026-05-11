@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
+import { pageHeroes } from "@/lib/data";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -14,24 +16,37 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <Section className="bg-brand-dark text-white">
-        <div className="max-w-3xl">
-          <ScrollReveal>
-            <Badge className="bg-white/10 text-brand-accent">Contact</Badge>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">
-              Let&apos;s start a conversation.
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <p className="mt-4 text-lg leading-relaxed text-brand-light/60">
-              We answer our own phones. No automated systems, no overseas call
-              centers — just real people who know landscaping.
-            </p>
-          </ScrollReveal>
+      <section className="bg-brand-warm">
+        <div className="grid lg:grid-cols-5 min-h-[40vh]">
+          <div className="lg:col-span-3 flex items-center px-6 py-12 lg:px-14 lg:py-16 order-1">
+            <div className="max-w-xl">
+              <ScrollReveal>
+                <Badge>Contact</Badge>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h1 className="mt-4 font-serif text-3xl font-bold text-brand-dark sm:text-4xl lg:text-5xl">
+                  Let&apos;s start a conversation.
+                </h1>
+              </ScrollReveal>
+              <ScrollReveal delay={0.15}>
+                <p className="mt-4 text-lg leading-relaxed text-brand-dark/60">
+                  We answer our own phones. No automated systems, no overseas
+                  call centers — just real people who know landscaping.
+                </p>
+              </ScrollReveal>
+            </div>
+          </div>
+          <div className="lg:col-span-2 relative min-h-[220px] lg:min-h-full order-2">
+            <Image
+              src={pageHeroes.contact.src}
+              alt={pageHeroes.contact.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
+          </div>
         </div>
-      </Section>
+      </section>
 
       <Section className="bg-white">
         <div className="grid lg:grid-cols-2 gap-16">

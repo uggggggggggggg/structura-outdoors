@@ -364,6 +364,41 @@ export const aboutImage = {
   alt: "Structura Outdoors team — Calgary-based landscaping, decking and foundation repair professionals serving Calgary and surrounding areas",
 };
 
+export const pageHeroes = {
+  services: {
+    src: "/images/hero-services.jpg",
+    alt: "Professional construction and decking workmanship by Structura Outdoors — Calgary luxury landscaping and outdoor construction",
+  },
+  portfolio: {
+    src: "/images/hero-portfolio.jpg",
+    alt: "Luxury outdoor living portfolio gallery — Structura Outdoors Calgary landscaping, decking and garden design projects",
+  },
+  process: {
+    src: "/images/hero-process.jpg",
+    alt: "Architectural design and blueprint process — Structura Outdoors Calgary design-build methodology",
+  },
+  about: {
+    src: "/images/about-team-calgary.jpg",
+    alt: "Structura Outdoors team — Calgary-based landscaping, decking and foundation repair professionals serving Calgary and surrounding areas",
+  },
+  quote: {
+    src: "/images/hero-quote.jpg",
+    alt: "Modern luxury outdoor living space with composite decking — request your free consultation from Structura Outdoors Calgary",
+  },
+  blog: {
+    src: "/images/hero-blog.jpg",
+    alt: "Landscaping insights, guides and tips for Calgary homeowners — Structura Outdoors blog and resources",
+  },
+  contact: {
+    src: "/images/hero-contact.jpg",
+    alt: "Contact Structura Outdoors Calgary — premium landscaping, decking and foundation repair for Calgary and surrounding areas",
+  },
+  guide: {
+    src: "/images/hero-guide.jpg",
+    alt: "The Calgary Outdoor Living Investment Guide — free resource from Structura Outdoors, Calgary's landscaping experts",
+  },
+};
+
 export const certifications = [
   "BBB Accredited",
   "CHBA Member",

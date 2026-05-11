@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
+import { pageHeroes } from "@/lib/data";
 import { Calendar, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -68,24 +70,37 @@ const blogPosts = [
 export default function BlogPage() {
   return (
     <>
-      <Section className="bg-brand-dark text-white">
-        <div className="max-w-3xl">
-          <ScrollReveal>
-            <Badge className="bg-white/10 text-brand-accent">Resources</Badge>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">
-              Calgary landscaping insights, straight from the pros.
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <p className="mt-4 text-lg leading-relaxed text-brand-light/60">
-              No fluff. No filler. Just practical advice on decks, gardens, and
-              foundations from the team that builds them every day.
-            </p>
-          </ScrollReveal>
+      <section className="bg-brand-warm">
+        <div className="grid lg:grid-cols-5 min-h-[40vh]">
+          <div className="lg:col-span-2 relative min-h-[220px] lg:min-h-full order-2 lg:order-1">
+            <Image
+              src={pageHeroes.blog.src}
+              alt={pageHeroes.blog.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
+          </div>
+          <div className="lg:col-span-3 flex items-center px-6 py-12 lg:px-14 lg:py-16 order-1 lg:order-2">
+            <div className="max-w-xl">
+              <ScrollReveal>
+                <Badge>Resources</Badge>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h1 className="mt-4 font-serif text-3xl font-bold text-brand-dark sm:text-4xl lg:text-5xl">
+                  Calgary landscaping insights, straight from the pros.
+                </h1>
+              </ScrollReveal>
+              <ScrollReveal delay={0.15}>
+                <p className="mt-4 text-lg leading-relaxed text-brand-dark/60">
+                  No fluff. No filler. Just practical advice on decks, gardens,
+                  and foundations from the team that builds them every day.
+                </p>
+              </ScrollReveal>
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
 
       <Section className="bg-white">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

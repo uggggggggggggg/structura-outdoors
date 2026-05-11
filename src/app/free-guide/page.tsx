@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
+import { pageHeroes } from "@/lib/data";
 import { BookOpen, Check, Download } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -14,27 +16,39 @@ export const metadata: Metadata = {
 export default function FreeGuidePage() {
   return (
     <>
-      <Section className="bg-brand-dark text-white">
-        <div className="max-w-3xl">
-          <ScrollReveal>
-            <Badge className="bg-white/10 text-brand-accent">
-              Free Resource
-            </Badge>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">
-              The Calgary Outdoor Living Investment Guide.
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <p className="mt-4 text-lg leading-relaxed text-brand-light/60">
-              Everything you need to know before investing in an outdoor project
-              — real costs, smart questions, and insider knowledge from
-              Calgary&apos;s landscaping experts.
-            </p>
-          </ScrollReveal>
+      <section className="relative bg-brand-dark">
+        <div className="grid lg:grid-cols-2 min-h-[50vh]">
+          <div className="relative min-h-[280px] lg:min-h-full order-2 lg:order-1">
+            <Image
+              src={pageHeroes.guide.src}
+              alt={pageHeroes.guide.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-brand-dark/20 lg:bg-gradient-to-r lg:from-brand-dark/10 lg:to-brand-dark/50" />
+          </div>
+          <div className="flex items-center px-6 py-14 lg:px-12 lg:py-20 order-1 lg:order-2">
+            <div className="max-w-xl">
+              <ScrollReveal>
+                <Badge className="bg-white/10 text-white/80">Free Resource</Badge>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h1 className="mt-4 font-serif text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                  The Calgary Outdoor Living Investment Guide.
+                </h1>
+              </ScrollReveal>
+              <ScrollReveal delay={0.15}>
+                <p className="mt-4 text-lg leading-relaxed text-white/60">
+                  Everything you need to know before investing in an outdoor
+                  project — real costs, smart questions, and insider knowledge
+                  from Calgary&apos;s landscaping experts.
+                </p>
+              </ScrollReveal>
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
 
       <Section className="bg-white">
         <div className="grid lg:grid-cols-2 gap-16 items-center">

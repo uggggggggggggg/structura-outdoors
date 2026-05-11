@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
 import QuoteForm from "@/components/QuoteForm";
+import { pageHeroes } from "@/lib/data";
 import { Star, Quote } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -14,27 +16,35 @@ export const metadata: Metadata = {
 export default function RequestQuotePage() {
   return (
     <>
-      <Section className="bg-brand-dark text-white">
-        <div className="max-w-3xl">
+      <section className="relative min-h-[50vh] flex items-end bg-brand-dark">
+        <Image
+          src={pageHeroes.quote.src}
+          alt={pageHeroes.quote.alt}
+          fill
+          className="absolute inset-0 object-cover"
+          style={{ opacity: 0.4 }}
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/40 to-brand-dark/20" />
+        <div className="relative z-10 w-full mx-auto max-w-7xl px-6 pb-14 pt-28 lg:px-8">
           <ScrollReveal>
-            <Badge className="bg-white/10 text-brand-accent">
-              Free Consultation
-            </Badge>
+            <Badge className="bg-white/10 text-white/80">Free Consultation</Badge>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">
+            <h1 className="mt-4 font-serif text-3xl font-bold text-white sm:text-4xl md:text-5xl max-w-2xl">
               Let&apos;s talk about your property.
             </h1>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
-            <p className="mt-4 text-lg leading-relaxed text-brand-light/60">
+            <p className="mt-4 text-lg leading-relaxed text-white/60 max-w-xl">
               Fill out the form below and we&apos;ll get back to you within 24
               hours with your free design consultation — no obligation, no
               pressure.
             </p>
           </ScrollReveal>
         </div>
-      </Section>
+      </section>
 
       <Section className="bg-white">
         <div className="grid lg:grid-cols-3 gap-12">

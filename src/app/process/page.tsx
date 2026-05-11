@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
+import { pageHeroes } from "@/lib/data";
 import { PenLine, Hammer, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -59,25 +61,39 @@ const processSteps = [
 export default function ProcessPage() {
   return (
     <>
-      <Section className="bg-brand-dark text-white">
-        <div className="max-w-3xl">
-          <ScrollReveal>
-            <Badge className="bg-white/10 text-brand-accent">The Process</Badge>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">
-              How we turn your property into its best self.
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <p className="mt-4 text-lg leading-relaxed text-brand-light/60">
-              Three steps. Zero confusion. Here&apos;s exactly what working with
-              Structura Outdoors looks like — from the first phone call to the
-              final walkthrough.
-            </p>
-          </ScrollReveal>
+      <section className="relative bg-brand-dark">
+        <div className="grid lg:grid-cols-2 min-h-[50vh]">
+          <div className="relative min-h-[280px] lg:min-h-full order-2 lg:order-1">
+            <Image
+              src={pageHeroes.process.src}
+              alt={pageHeroes.process.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-brand-dark/20 lg:bg-gradient-to-r lg:from-brand-dark/10 lg:to-brand-dark/50" />
+          </div>
+          <div className="flex items-center px-6 py-14 lg:px-12 lg:py-20 order-1 lg:order-2 bg-brand-dark">
+            <div className="max-w-xl">
+              <ScrollReveal>
+                <Badge className="bg-white/10 text-white/80">The Process</Badge>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h1 className="mt-4 font-serif text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                  How we turn your property into its best self.
+                </h1>
+              </ScrollReveal>
+              <ScrollReveal delay={0.15}>
+                <p className="mt-4 text-lg leading-relaxed text-white/60">
+                  Three steps. Zero confusion. Here&apos;s exactly what working with
+                  Structura Outdoors looks like — from the first phone call to the
+                  final walkthrough.
+                </p>
+              </ScrollReveal>
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
 
       {processSteps.map((step, i) => (
         <Section

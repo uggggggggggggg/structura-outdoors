@@ -4,7 +4,7 @@ import Section from "@/components/Section";
 import ScrollReveal from "@/components/ScrollReveal";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
-import { services as servicesData } from "@/lib/data";
+import { services as servicesData, pageHeroes } from "@/lib/data";
 import { LayoutGrid, Flower2, Shield, Check } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -38,24 +38,34 @@ const services = servicesData.map((s) => ({
 export default function ServicesPage() {
   return (
     <>
-      <Section className="bg-brand-dark text-white">
-        <div className="max-w-3xl">
+      <section className="relative min-h-[55vh] flex items-end bg-brand-dark">
+        <Image
+          src={pageHeroes.services.src}
+          alt={pageHeroes.services.alt}
+          fill
+          className="absolute inset-0 object-cover"
+          style={{ opacity: 0.4 }}
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/40 to-brand-dark/20" />
+        <div className="relative z-10 w-full mx-auto max-w-7xl px-6 pb-14 pt-28 lg:px-8">
           <ScrollReveal>
-            <Badge className="bg-white/10 text-brand-accent">Our Services</Badge>
+            <Badge className="bg-white/10 text-white/80">Our Services</Badge>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h1 className="mt-4 font-serif text-4xl font-bold sm:text-5xl">
+            <h1 className="mt-4 font-serif text-3xl font-bold text-white sm:text-4xl md:text-5xl max-w-3xl">
               Everything your property needs. Nothing it doesn&apos;t.
             </h1>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
-            <p className="mt-4 text-lg leading-relaxed text-brand-light/60">
+            <p className="mt-4 text-lg leading-relaxed text-white/60 max-w-2xl">
               Three core disciplines. One team. Zero subcontractors who
               don&apos;t share our standards.
             </p>
           </ScrollReveal>
         </div>
-      </Section>
+      </section>
 
       {services.map((service, i) => (
         <Section
