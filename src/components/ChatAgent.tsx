@@ -23,6 +23,17 @@ const BUDGET_CHIPS = [
   "Not sure yet",
 ];
 
+const OUTDOOR_KEYWORDS = [
+  "deck", "garden", "foundation", "landscaping", "patio", "yard",
+  "outdoor", "soil", "plants", "fence", "retaining wall", "drainage",
+  "property", "home", "house", "renovation", "backyard", "calgary",
+  "hardscaping", "softscaping", "planting", "walkway", "driveway",
+  "exterior", "curb appeal", "lighting", "irrigation", "stone",
+  "concrete", "road", "asphalt", "snow", "winter", "summer",
+  "budget", "quote", "estimate", "price", "cost", "help",
+  "hello", "hi", "hey", "good morning", "good afternoon",
+];
+
 export default function ChatAgent() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -110,6 +121,24 @@ export default function ChatAgent() {
   const handleSend = () => {
     const text = input.trim();
     if (!text) return;
+
+    const lower = text.toLowerCase();
+    const isInScope = OUTDOOR_KEYWORDS.some((kw) => lower.includes(kw));
+    if (!isInScope) {
+      setMessages((prev) => [
+        ...prev,
+        { id: genId(), role: "user", content: text },
+        {
+          id: genId(),
+          role: "assistant",
+          content:
+            "I'm Ava from Structura Outdoors. I'm here to help with your outdoor project — decking, garden design, or foundation repair. What would you like to explore?",
+        },
+      ]);
+      setInput("");
+      return;
+    }
+
     sendMessage(text);
     setInput("");
   };
