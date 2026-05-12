@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 
@@ -14,6 +14,14 @@ let nextId = 0;
 function genId() {
   return `msg-${++nextId}-${Date.now()}`;
 }
+
+const BUDGET_CHIPS = [
+  "Under $10,000",
+  "$10,000 – $30,000",
+  "$30,000 – $75,000",
+  "$75,000+",
+  "Not sure yet",
+];
 
 export default function ChatAgent() {
   const [open, setOpen] = useState(false);
@@ -107,6 +115,34 @@ export default function ChatAgent() {
 
   const loading = status === "loading";
 
+  const showBudgetChips = useMemo(() => {
+    if (messages.length === 0) return false;
+    const lastAssistant = [...messages]
+      .reverse()
+      .find((m) => m.role === "assistant");
+    if (!lastAssistant) return false;
+
+    const text = lastAssistant.content.toLowerCase();
+    const hasBudgetKeywords =
+      text.includes("budget") ||
+      text.includes("spend") ||
+      text.includes("investment") ||
+      text.includes("price") ||
+      text.includes("cost") ||
+      text.includes("looking to invest");
+
+    const userMentionedBudget = messages.some(
+      (m) =>
+        m.role === "user" &&
+        (m.content.includes("$") ||
+          m.content.toLowerCase().includes("budget") ||
+          m.content.toLowerCase().includes("under 10") ||
+          m.content.toLowerCase().includes("not sure")),
+    );
+
+    return hasBudgetKeywords && !userMentionedBudget;
+  }, [messages]);
+
   return (
     <>
       <motion.button
@@ -177,6 +213,28 @@ export default function ChatAgent() {
                   </div>
                 </div>
               ))}
+
+              {showBudgetChips && !loading && (
+                <motion.div
+                  className="flex flex-wrap gap-2 pl-2"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {BUDGET_CHIPS.map((chip) => (
+                    <motion.button
+                      key={chip}
+                      type="button"
+                      onClick={() => sendMessage(chip)}
+                      className="rounded-full border border-[#DCE2D6] bg-white px-3 py-1.5 text-xs font-medium text-[#3D4A38] hover:border-[#5A7D4A] hover:bg-[#5A7D4A]/5 transition-colors"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {chip}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
 
               {loading && (
                 <div className="flex justify-start">

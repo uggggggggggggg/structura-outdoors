@@ -11,16 +11,19 @@ const GUIDE_LINK =
 
 const SYSTEM_PROMPT = `You are the Senior Design Consultant for Structura Outdoors, Calgary's premium landscaping and outdoor design company. You specialize in Japandi-style landscaping — a fusion of Japanese minimalism and Scandinavian functionality — and you know the technical demands of Alberta's climate: heavy snow loads, freeze-thaw cycles, expansive clay soil, and frost heaving.
 
-Your job is to qualify leads conversationally. You must collect THREE pieces of information:
+Your job is to qualify leads conversationally. You must collect FIVE pieces of information:
 1. The person's name
 2. Their Calgary neighborhood (e.g., Aspen Woods, Altadore, Elbow Park, Springbank Hill, Mount Royal, Bowness)
 3. Their budget range for the project (e.g., under $10k, $10k-$30k, $30k-$75k, $75k+, or unsure)
+4. Their phone number
+5. A brief description of what they're interested in (decking, garden design, foundation repair, or a combination)
 
 Guidelines:
 - Be warm, knowledgeable, and conversational — not pushy or robotic.
 - Weave in your expertise naturally. Mention how certain neighborhoods have specific soil or drainage challenges. Reference Japandi design principles (clean lines, natural materials, intentional restraint) when relevant.
 - Ask one question at a time. Don't interrogate.
-- Once you have all three pieces of data (name, neighborhood, budget), call the submit_lead function immediately.
+- If the user hasn't mentioned their budget yet, suggest they can tap one of the budget options shown on screen.
+- Once you have ALL five pieces of data (name, neighborhood, budget, phone, and project interest), call the submit_lead function immediately.
 - After calling submit_lead, tell the user: "I've recorded your details for our design team. You can access our Calgary Outdoor Living Investment Guide here: https://docs.google.com/document/d/1XB3v4eQ0X4IekUikleqfwYqqRJr44ENamQ0mOZRJrfE/edit?usp=sharing"
 - Keep responses concise — 2-4 sentences max unless the user asks for detail.
 - Never hallucinate neighborhoods or pricing. If you're unsure, ask.`;
@@ -30,7 +33,7 @@ const LEAD_TOOL = {
   function: {
     name: "submit_lead",
     description:
-      "Submit a qualified lead to the Structura Outdoors design team. Call this when you have collected the person's name, Calgary neighborhood, and budget range.",
+      "Submit a qualified lead to the Structura Outdoors design team. Call this when you have collected the person's name, Calgary neighborhood, budget range, phone number, and project interest.",
     parameters: {
       type: "object",
       properties: {
@@ -43,12 +46,16 @@ const LEAD_TOOL = {
           type: "string",
           description: "Their budget range, e.g. under $10k, $10k-$30k, $30k-$75k, $75k+, or unsure",
         },
+        phone: {
+          type: "string",
+          description: "Their phone number",
+        },
         summary: {
           type: "string",
           description: "A brief summary of the conversation and what the person is interested in",
         },
       },
-      required: ["name", "neighborhood", "budget", "summary"],
+      required: ["name", "neighborhood", "budget", "phone", "summary"],
     },
   },
 };
@@ -79,10 +86,11 @@ async function deepseekChat(messages: Array<{ role: string; content: string }>) 
 }
 
 async function executeLeadTool(args: Record<string, unknown>) {
-  const { name, neighborhood, budget, summary } = args as {
+  const { name, neighborhood, budget, phone, summary } = args as {
     name: string;
     neighborhood: string;
     budget: string;
+    phone: string;
     summary: string;
   };
   try {
@@ -98,7 +106,8 @@ async function executeLeadTool(args: Record<string, unknown>) {
           <table style="width: 100%; border-collapse: collapse;">
             <tr><td style="padding: 8px 0; color: #7A8074; font-size: 13px;">Name</td><td style="padding: 8px 0; color: #1C2820; font-weight: 600;">${name}</td></tr>
             <tr><td style="padding: 8px 0; color: #7A8074; font-size: 13px;">Neighborhood</td><td style="padding: 8px 0; color: #1C2820; font-weight: 600;">${neighborhood}</td></tr>
-            <tr><td style="padding: 8px 0; color: #7A8074; font-size: 13px;">Budget</td><td style="padding: 8px 0; color: #1C2820; font-weight: 600;">${budget}</td></tr>
+              <tr><td style="padding: 8px 0; color: #7A8074; font-size: 13px;">Budget</td><td style="padding: 8px 0; color: #1C2820; font-weight: 600;">${budget}</td></tr>
+              <tr><td style="padding: 8px 0; color: #7A8074; font-size: 13px;">Phone</td><td style="padding: 8px 0; color: #1C2820; font-weight: 600;">${phone}</td></tr>
           </table>
           <hr style="border: 1px solid #DCE2D6; margin: 20px 0;" />
           <p style="color: #3D4A38; font-size: 14px; line-height: 1.6;"><strong>Conversation summary:</strong><br/>${summary}</p>
