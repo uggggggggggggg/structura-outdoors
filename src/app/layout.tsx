@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import LeadGenPopup from "@/components/LeadGenPopup";
+import ChatAgent from "@/components/ChatAgent";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -51,6 +52,7 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </main>
         <LeadGenPopup />
+        <ChatAgent />
         <Footer />
       </body>
     </html>
