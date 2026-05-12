@@ -1,17 +1,27 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useChat } from "@ai-sdk/react";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+
+interface Message {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+}
+
+let nextId = 0;
+function genId() {
+  return `msg-${++nextId}-${Date.now()}`;
+}
 
 export default function ChatAgent() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [status, setStatus] = useState<"idle" | "loading">("idle");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const { messages, status, sendMessage } = useChat();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,10 +31,65 @@ export default function ChatAgent() {
     if (open) inputRef.current?.focus();
   }, [open]);
 
+  const sendMessage = useCallback(
+    async (text: string) => {
+      if (status === "loading") return;
+
+      const userMsg: Message = {
+        id: genId(),
+        role: "user",
+        content: text,
+      };
+
+      const updatedMessages = [...messages, userMsg];
+      setMessages(updatedMessages);
+      setStatus("loading");
+
+      try {
+        const res = await fetch("/api/chat?mode=json", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages: updatedMessages.map((m) => ({
+              role: m.role,
+              content: m.content,
+            })),
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data.content) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: genId(),
+              role: "assistant",
+              content: data.content,
+            },
+          ]);
+        }
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: genId(),
+            role: "assistant",
+            content:
+              "I'm having trouble connecting right now. Please try again in a moment.",
+          },
+        ]);
+      } finally {
+        setStatus("idle");
+      }
+    },
+    [messages, status],
+  );
+
   const handleSend = () => {
     const text = input.trim();
-    if (!text || status === "submitted") return;
-    sendMessage({ text });
+    if (!text) return;
+    sendMessage(text);
     setInput("");
   };
 
@@ -40,11 +105,10 @@ export default function ChatAgent() {
     handleSend();
   };
 
-  const submitting = status === "submitted";
+  const loading = status === "loading";
 
   return (
     <>
-      {/* Toggle button — always visible */}
       <motion.button
         type="button"
         onClick={() => setOpen(!open)}
@@ -62,7 +126,6 @@ export default function ChatAgent() {
         )}
       </motion.button>
 
-      {/* Chat window */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -73,7 +136,6 @@ export default function ChatAgent() {
             exit={{ opacity: 0, scale: 0.9, y: 20, x: 10 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
           >
-            {/* Header */}
             <div className="flex items-center gap-3 px-5 py-4 bg-[#1a2e1a] text-white shrink-0">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
                 <Sparkles size={16} className="text-white/90" />
@@ -86,9 +148,7 @@ export default function ChatAgent() {
               </div>
             </div>
 
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#FAFBF7]">
-              {/* Welcome message shown when no messages yet */}
               {messages.length === 0 && (
                 <div className="flex justify-start">
                   <div className="max-w-[80%] rounded-2xl rounded-bl-md bg-white border border-[#DCE2D6] px-4 py-2.5 text-sm leading-relaxed text-[#3D4A38]">
@@ -99,37 +159,26 @@ export default function ChatAgent() {
                 </div>
               )}
 
-              {messages.map((m) => {
-                const msg = m as {
-                  id: string;
-                  role: string;
-                  parts: Array<{ type: string; text: string }>;
-                };
-                return (
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className={`flex ${
+                    m.role === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
                   <div
-                    key={msg.id}
-                    className={`flex ${
-                      msg.role === "user" ? "justify-end" : "justify-start"
+                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                      m.role === "user"
+                        ? "bg-[#1a2e1a] text-white rounded-br-md"
+                        : "bg-white border border-[#DCE2D6] text-[#3D4A38] rounded-bl-md"
                     }`}
                   >
-                    <div
-                      className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                        msg.role === "user"
-                          ? "bg-[#1a2e1a] text-white rounded-br-md"
-                          : "bg-white border border-[#DCE2D6] text-[#3D4A38] rounded-bl-md"
-                      }`}
-                    >
-                      {msg.parts
-                        .filter((p) => p.type === "text")
-                        .map((part, i) => (
-                          <span key={i}>{part.text}</span>
-                        ))}
-                    </div>
+                    {m.content}
                   </div>
-                );
-              })}
+                </div>
+              ))}
 
-              {submitting && (
+              {loading && (
                 <div className="flex justify-start">
                   <div className="max-w-[80%] rounded-2xl rounded-bl-md bg-white border border-[#DCE2D6] px-4 py-2.5">
                     <div className="flex items-center gap-2 text-sm text-[#3D4A38]">
@@ -143,7 +192,6 @@ export default function ChatAgent() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
             <form
               onSubmit={onFormSubmit}
               className="flex items-center gap-2 px-4 py-3 border-t border-[#DCE2D6] bg-white shrink-0"
@@ -155,12 +203,12 @@ export default function ChatAgent() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={onKeyDown}
                 placeholder="Type your message..."
-                disabled={submitting}
+                disabled={loading}
                 className="flex-1 rounded-full border border-[#DCE2D6] bg-[#F2F5ED] px-4 py-2.5 text-sm text-brand-dark placeholder:text-[#A0B09A] focus:border-[#5A7D4A] focus:outline-none focus:ring-1 focus:ring-[#5A7D4A] transition-all duration-200 disabled:opacity-50"
               />
               <motion.button
                 type="submit"
-                disabled={!input.trim() || submitting}
+                disabled={!input.trim() || loading}
                 className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1a2e1a] text-white hover:bg-[#1f3d1f] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.93 }}
