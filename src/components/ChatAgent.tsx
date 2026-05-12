@@ -123,8 +123,10 @@ export default function ChatAgent() {
     if (!text) return;
 
     const lower = text.toLowerCase();
+    const userCount = messages.filter((m) => m.role === "user").length;
+    const shouldGate = userCount >= 2;
     const isInScope = OUTDOOR_KEYWORDS.some((kw) => lower.includes(kw));
-    if (!isInScope) {
+    if (shouldGate && !isInScope) {
       setMessages((prev) => [
         ...prev,
         { id: genId(), role: "user", content: text },
