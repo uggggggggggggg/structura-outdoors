@@ -111,7 +111,6 @@ export default function ChatAgent() {
               "I'm having trouble connecting right now. Please try again in a moment.",
           },
         ]);
-      } finally {
         setStatus("idle");
       }
     },
@@ -124,7 +123,7 @@ export default function ChatAgent() {
 
     const lower = text.toLowerCase();
     const userCount = messages.filter((m) => m.role === "user").length;
-    const shouldGate = userCount >= 2;
+    const shouldGate = userCount >= 4;
     const looksLikePhone = text.replace(/\D/g, "").length >= 7;
     const isInScope =
       looksLikePhone ||
