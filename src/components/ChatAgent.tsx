@@ -54,6 +54,7 @@ export default function ChatAgent() {
       setStatus("loading");
 
       try {
+        const startTime = Date.now();
         const res = await fetch("/api/chat?mode=json", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -68,14 +69,26 @@ export default function ChatAgent() {
         const data = await res.json();
 
         if (data.content) {
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: genId(),
-              role: "assistant",
-              content: data.content,
-            },
-          ]);
+          const elapsed = Date.now() - startTime;
+          const remaining = Math.max(0, 3000 - elapsed);
+
+          const newMsg = {
+            id: genId(),
+            role: "assistant" as const,
+            content: data.content,
+          };
+
+          if (remaining > 0) {
+            setTimeout(() => {
+              setMessages((prev) => [...prev, newMsg]);
+              setStatus("idle");
+            }, remaining);
+          } else {
+            setMessages((prev) => [...prev, newMsg]);
+            setStatus("idle");
+          }
+        } else {
+          setStatus("idle");
         }
       } catch {
         setMessages((prev) => [
@@ -195,7 +208,9 @@ export default function ChatAgent() {
                 </div>
               )}
 
-              {messages.map((m) => (
+              {messages.map((m) => {
+                const sentences = m.content.split(/(?<=[.?!])\s+/);
+                return (
                 <div
                   key={m.id}
                   className={`flex ${
@@ -209,10 +224,25 @@ export default function ChatAgent() {
                         : "bg-white border border-[#DCE2D6] text-[#3D4A38] rounded-bl-md"
                     }`}
                   >
-                    {m.content}
+                    {m.role === "user"
+                      ? m.content
+                      : sentences.map((s, i) => (
+                          <span
+                            key={i}
+                            className={
+                              s.trim().endsWith("?")
+                                ? "font-semibold text-brand-dark"
+                                : ""
+                            }
+                          >
+                            {s}
+                            {i < sentences.length - 1 ? " " : ""}
+                          </span>
+                        ))}
                   </div>
                 </div>
-              ))}
+              );
+              })}
 
               {showBudgetChips && !loading && (
                 <motion.div

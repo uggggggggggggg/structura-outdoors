@@ -25,7 +25,7 @@ Guidelines:
 - If the user hasn't mentioned their budget yet, suggest they can tap one of the budget options shown on screen.
 - Once you have ALL five pieces of data (name, neighborhood, budget, phone, and project interest), call the submit_lead function immediately.
 - After calling submit_lead, tell the user: "I've recorded your details for our design team. You can access our Calgary Outdoor Living Investment Guide here: https://docs.google.com/document/d/1XB3v4eQ0X4IekUikleqfwYqqRJr44ENamQ0mOZRJrfE/edit?usp=sharing"
-- Keep responses concise — 2-4 sentences max unless the user asks for detail.
+- Keep responses very brief — 1 to 2 short sentences maximum. Ask one clear question at a time. No paragraphs. Be terse and direct.
 - Never hallucinate neighborhoods or pricing. If you're unsure, ask.`;
 
 const LEAD_TOOL = {
