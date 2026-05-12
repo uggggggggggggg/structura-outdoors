@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 
 export default function ChatAgent() {
@@ -12,21 +11,7 @@ export default function ChatAgent() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { messages, status, sendMessage } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
-    messages: [
-      {
-        id: "welcome",
-        role: "assistant",
-        parts: [
-          {
-            type: "text",
-            text: "Hi, I'm Ava — Senior Design Consultant at Structura Outdoors. I specialize in Japandi-style landscaping for Calgary properties. What's your name?",
-          },
-        ],
-      },
-    ],
-  });
+  const { messages, status, sendMessage } = useChat();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,7 +23,7 @@ export default function ChatAgent() {
 
   const handleSend = () => {
     const text = input.trim();
-    if (!text) return;
+    if (!text || status === "submitted") return;
     sendMessage({ text });
     setInput("");
   };
@@ -59,14 +44,14 @@ export default function ChatAgent() {
 
   return (
     <>
-      {/* Toggle button */}
+      {/* Toggle button — always visible */}
       <motion.button
         type="button"
         onClick={() => setOpen(!open)}
         className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#1a2e1a] text-white shadow-xl hover:bg-[#1f3d1f] transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.92 }}
-        aria-label={open ? "Close chat" : "Open chat"}
+        aria-label={open ? "Close chat" : "Chat with our design consultant"}
       >
         {open ? <X size={24} /> : <MessageCircle size={24} />}
         {!open && (
@@ -103,28 +88,45 @@ export default function ChatAgent() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#FAFBF7]">
-              {messages.map((m) => {
-                const msg = m as { id: string; role: string; parts: Array<{ type: string; text: string }> };
-                return (
-                <div
-                  key={msg.id}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                      msg.role === "user"
-                        ? "bg-[#1a2e1a] text-white rounded-br-md"
-                        : "bg-white border border-[#DCE2D6] text-[#3D4A38] rounded-bl-md"
-                    }`}
-                  >
-                    {msg.parts.map((part, i) =>
-                      part.type === "text" ? (
-                        <span key={i}>{part.text}</span>
-                      ) : null,
-                    )}
+              {/* Welcome message shown when no messages yet */}
+              {messages.length === 0 && (
+                <div className="flex justify-start">
+                  <div className="max-w-[80%] rounded-2xl rounded-bl-md bg-white border border-[#DCE2D6] px-4 py-2.5 text-sm leading-relaxed text-[#3D4A38]">
+                    Hi, I&apos;m Ava — Senior Design Consultant at Structura
+                    Outdoors. I specialize in Japandi-style landscaping for
+                    Calgary properties. What&apos;s your name?
                   </div>
                 </div>
-              );
+              )}
+
+              {messages.map((m) => {
+                const msg = m as {
+                  id: string;
+                  role: string;
+                  parts: Array<{ type: string; text: string }>;
+                };
+                return (
+                  <div
+                    key={msg.id}
+                    className={`flex ${
+                      msg.role === "user" ? "justify-end" : "justify-start"
+                    }`}
+                  >
+                    <div
+                      className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                        msg.role === "user"
+                          ? "bg-[#1a2e1a] text-white rounded-br-md"
+                          : "bg-white border border-[#DCE2D6] text-[#3D4A38] rounded-bl-md"
+                      }`}
+                    >
+                      {msg.parts
+                        .filter((p) => p.type === "text")
+                        .map((part, i) => (
+                          <span key={i}>{part.text}</span>
+                        ))}
+                    </div>
+                  </div>
+                );
               })}
 
               {submitting && (
@@ -159,7 +161,7 @@ export default function ChatAgent() {
               <motion.button
                 type="submit"
                 disabled={!input.trim() || submitting}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1a2e1a] text-white hover:bg-[#1f3d1f] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1a2e1a] text-white hover:bg-[#1f3d1f] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.93 }}
               >
