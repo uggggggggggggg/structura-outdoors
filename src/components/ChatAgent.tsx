@@ -125,7 +125,10 @@ export default function ChatAgent() {
     const lower = text.toLowerCase();
     const userCount = messages.filter((m) => m.role === "user").length;
     const shouldGate = userCount >= 2;
-    const isInScope = OUTDOOR_KEYWORDS.some((kw) => lower.includes(kw));
+    const looksLikePhone = text.replace(/\D/g, "").length >= 7;
+    const isInScope =
+      looksLikePhone ||
+      OUTDOOR_KEYWORDS.some((kw) => lower.includes(kw));
     if (shouldGate && !isInScope) {
       setMessages((prev) => [
         ...prev,
