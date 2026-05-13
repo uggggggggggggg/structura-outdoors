@@ -209,7 +209,6 @@ export default function ChatAgent() {
               )}
 
               {messages.map((m) => {
-                const sentences = m.content.split(/(?<=[.?!])\s+/);
                 return (
                 <div
                   key={m.id}
@@ -226,19 +225,23 @@ export default function ChatAgent() {
                   >
                     {m.role === "user"
                       ? m.content
-                      : sentences.map((s, i) => (
-                          <span
-                            key={i}
-                            className={
-                              s.trim().endsWith("?")
-                                ? "font-semibold text-brand-dark"
-                                : ""
+                      : (() => {
+                          const urlRegex = /(https?:\/\/[^\s]+)/;
+                          const parts = m.content.split(urlRegex);
+                          return parts.map((part, i) => {
+                            if (urlRegex.test(part)) {
+                              return (
+                                <span key={i}>
+                                  <br />
+                                  <span className="font-semibold text-brand-dark">
+                                    {part}
+                                  </span>
+                                </span>
+                              );
                             }
-                          >
-                            {s}
-                            {i < sentences.length - 1 ? " " : ""}
-                          </span>
-                        ))}
+                            return <span key={i}>{part}</span>;
+                          });
+                        })()}
                   </div>
                 </div>
               );
